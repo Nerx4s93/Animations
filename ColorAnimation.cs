@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Animations
 {
-    internal class ColorAnimation : IAnimation
+    public class ColorAnimation : IAnimation
     {
         private readonly Control _control;
         private readonly FieldInfo _fieldInfo;
