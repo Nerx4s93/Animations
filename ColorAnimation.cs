@@ -53,9 +53,9 @@ namespace Animations
                     int newG = Math.Max(0, _startValue.G + deltaG * i);
                     int newB = Math.Max(0, _startValue.B + deltaB * i);
 
-                    int currentR = newR < _endValue.R ? newR : _endValue.R;
-                    int currentG = newG < _endValue.G ? newG : _endValue.G;
-                    int currentB = newB < _endValue.B ? newB : _endValue.B;
+                    int currentR = (changeR > 0 && newR < _endValue.R) || (changeR < 0 && newR > _endValue.R) ? newR : _endValue.R;
+                    int currentG = (changeG > 0 && newG < _endValue.G) || (changeG < 0 && newG > _endValue.G) ? newG : _endValue.G;
+                    int currentB = (changeB > 0 && newB < _endValue.B) || (changeB < 0 && newB > _endValue.B) ? newB : _endValue.B;
 
                     SetValue(Color.FromArgb(currentR, currentG, currentB));
 
