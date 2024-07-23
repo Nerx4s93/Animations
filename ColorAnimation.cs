@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Reflection;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Animations
@@ -14,6 +13,8 @@ namespace Animations
         private readonly int _time;
         private readonly Color _startValue;
         private readonly Color _endValue;
+
+        private Thread _thread;
 
         public ColorAnimation(Control control, string varName, int time, Color startValue, Color endValue)
         {
@@ -28,7 +29,7 @@ namespace Animations
 
         public void Run()
         {
-            var task = new Task(() =>
+            _thread = new Thread(() =>
             {
                 SetValue(_startValue);
 
@@ -64,9 +65,10 @@ namespace Animations
                 }
 
                 SetValue(_endValue);
+                _thread.Abort();
             });
 
-            task.Start();
+            _thread.Start();
         }
 
 

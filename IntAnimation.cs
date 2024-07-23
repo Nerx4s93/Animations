@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reflection;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Animations
@@ -13,6 +12,8 @@ namespace Animations
         private readonly int _time;
         private readonly int _startValue;
         private readonly int _endValue;
+
+        private Thread _thread;
 
         public IntAnimation(Control control, string varName, int time, int startValue, int endValue)
         {
@@ -27,7 +28,7 @@ namespace Animations
 
         public void Run()
         {
-            var task = new Task(() =>
+            _thread = new Thread(() =>
             {
                 SetValue(_startValue);
 
@@ -47,9 +48,10 @@ namespace Animations
                 }
 
                 SetValue(_endValue);
+                _thread.Abort();
             });
 
-            task.Start();
+            _thread.Start();
         }
 
 
