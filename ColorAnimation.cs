@@ -71,6 +71,10 @@ namespace Animations
             _thread.Start();
         }
 
+        public void Stop()
+        {
+            _thread?.Abort();
+        }
 
         private void SetValue(Color value)
         {
